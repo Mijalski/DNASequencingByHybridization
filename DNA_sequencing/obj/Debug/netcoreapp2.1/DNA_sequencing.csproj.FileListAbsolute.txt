@@ -1,0 +1,11 @@
+C:\Users\mijal\source\repos\DNA_sequencing\DNA_sequencing\bin\Debug\netcoreapp2.1\DNA_sequencing.deps.json
+C:\Users\mijal\source\repos\DNA_sequencing\DNA_sequencing\bin\Debug\netcoreapp2.1\DNA_sequencing.runtimeconfig.json
+C:\Users\mijal\source\repos\DNA_sequencing\DNA_sequencing\bin\Debug\netcoreapp2.1\DNA_sequencing.runtimeconfig.dev.json
+C:\Users\mijal\source\repos\DNA_sequencing\DNA_sequencing\bin\Debug\netcoreapp2.1\DNA_sequencing.dll
+C:\Users\mijal\source\repos\DNA_sequencing\DNA_sequencing\bin\Debug\netcoreapp2.1\DNA_sequencing.pdb
+C:\Users\mijal\source\repos\DNA_sequencing\DNA_sequencing\obj\Debug\netcoreapp2.1\DNA_sequencing.csprojAssemblyReference.cache
+C:\Users\mijal\source\repos\DNA_sequencing\DNA_sequencing\obj\Debug\netcoreapp2.1\DNA_sequencing.csproj.CoreCompileInputs.cache
+C:\Users\mijal\source\repos\DNA_sequencing\DNA_sequencing\obj\Debug\netcoreapp2.1\DNA_sequencing.AssemblyInfoInputs.cache
+C:\Users\mijal\source\repos\DNA_sequencing\DNA_sequencing\obj\Debug\netcoreapp2.1\DNA_sequencing.AssemblyInfo.cs
+C:\Users\mijal\source\repos\DNA_sequencing\DNA_sequencing\obj\Debug\netcoreapp2.1\DNA_sequencing.dll
+C:\Users\mijal\source\repos\DNA_sequencing\DNA_sequencing\obj\Debug\netcoreapp2.1\DNA_sequencing.pdb
