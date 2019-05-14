@@ -8,6 +8,7 @@ namespace DNA_sequencing.GraphLogic
     public class Graph
     {
         public List<Node> Nodes;
+
         public string OriginalDna;
         public int LengthK = 0; //TODO Change this name
 

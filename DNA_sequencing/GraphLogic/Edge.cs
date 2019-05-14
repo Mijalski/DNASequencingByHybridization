@@ -9,6 +9,7 @@ namespace DNA_sequencing.GraphLogic
     {
         public Node FromNode;
         public Node ToNode;
+
         public int Weight;
 
         public Edge(Node fromEdge, Node toNode, int weight)
