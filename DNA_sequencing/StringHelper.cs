@@ -24,10 +24,32 @@ namespace DNA_sequencing
         public static Random Instance => threadLocal.Value;
 
         //Methods to use:
-        public static string GetRandomString(int length)
+        public static string GetRandomString(int length, float probabilityA = 0.25f, float probabilityC = 0.25f,
+            float probabilityG = 0.25f)
         {
+            var customPool = string.Empty;
+
+            probabilityA *= 100;
+            probabilityC *= 100;
+            probabilityG *= 100;
+
+            for (var i = 0; i < 100; i++)
+            {
+                if(i < probabilityA)
+                    customPool += pool[0];
+
+                else if(i < probabilityC + probabilityA)
+                    customPool += pool[1];
+
+                else if(i < probabilityG + probabilityC + probabilityA)
+                    customPool += pool[2];
+
+                else 
+                    customPool += pool[3];
+            }
+
             var chars = Enumerable.Range(0, length)
-                .Select(x => pool[Instance.Next(0, pool.Length)]);
+                .Select(x => customPool[Instance.Next(0, 100)]);
 
             return new string(chars.ToArray());
         }
@@ -40,6 +62,7 @@ namespace DNA_sequencing
             Console.WriteLine("Score: " + overallScore);
         }
 
+        //Private methods:
         private static void InitializeMatrix(int baseLength, int referenceLength, out int[,]scoringMatrix)
         {
             scoringMatrix = new int[++baseLength, ++referenceLength];
