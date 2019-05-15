@@ -44,7 +44,7 @@ namespace DNA_sequencing.GraphLogic
 
         private void AddNode(string dnaSequence)
         {
-            var node = Nodes.FirstOrDefault(_ => _.DnaSequence == dnaSequence);
+            var node = Nodes.SingleOrDefault(_ => _.DnaSequence == dnaSequence);
 
             if (node == null) //Only create new node when a node with that dna sequence is not existing
             {
