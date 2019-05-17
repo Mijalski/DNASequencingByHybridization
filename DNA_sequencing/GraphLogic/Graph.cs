@@ -8,8 +8,10 @@ namespace DNA_sequencing.GraphLogic
     public class Graph
     {
         public List<Node> Nodes;
+        public Node StartingNode;
 
         public string OriginalDna;
+        public int DnaLength;
         public int LengthK = 0; //TODO Change this name
 
         public Graph(string dna, int dnaLength, int k)
@@ -17,13 +19,33 @@ namespace DNA_sequencing.GraphLogic
             LengthK = k;
             Nodes = new List<Node>();
             OriginalDna = dna;
+            DnaLength = dna.Length;
 
             for (var i = 0; i <= dnaLength - LengthK; i++)
             {
                 this.AddNode(dna.Substring(i, LengthK)); //add a node for every K-length substring of our DNA
             }
 
+            StartingNode = Nodes.First();
+
             AddEdges();
+        }
+
+        public string FindRandomAnswer()
+        {
+            var currentNode = StartingNode;
+            var reconstructedDna = StartingNode.DnaSequence;
+
+            while (reconstructedDna.Length < DnaLength)
+            {
+                var nextEdge = currentNode.GetRandomEdgeOut();
+                currentNode = nextEdge.ToNode;
+
+                reconstructedDna = reconstructedDna.Remove(reconstructedDna.Length - nextEdge.Weight); //we need to remove overlapping DNA sequence from the next node
+                reconstructedDna += currentNode.DnaSequence;
+            }
+
+            return reconstructedDna;
         }
 
         public void PrintOutGraph()

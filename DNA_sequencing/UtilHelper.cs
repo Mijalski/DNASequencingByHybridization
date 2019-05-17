@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace DNA_sequencing
 {
-    public class StringHelper
+    public class UtilHelper
     {
         const string pool = "ACGT";
 
@@ -16,7 +16,7 @@ namespace DNA_sequencing
 
         private static ThreadLocal<Random> threadLocal = new ThreadLocal<Random>(() => new Random(Interlocked.Increment(ref seed)));
         
-        static StringHelper()
+        static UtilHelper()
         {
             seed = Environment.TickCount;
         }
@@ -24,6 +24,12 @@ namespace DNA_sequencing
         public static Random Instance => threadLocal.Value;
 
         //Methods to use:
+        public static int GetRandomValue(int maxValue)
+        {
+            return Instance.Next(0, maxValue);
+        }
+
+
         public static string GetRandomString(int length, float probabilityA = 0.25f, float probabilityC = 0.25f,
             float probabilityG = 0.25f)
         {

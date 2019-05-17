@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DNA_sequencing.GraphLogic
@@ -18,6 +19,11 @@ namespace DNA_sequencing.GraphLogic
             this.Number = number;
             EdgesIn = new List<Edge>();
             EdgesOut = new List<Edge>();
+        }
+
+        public Edge GetRandomEdgeOut()
+        {
+            return EdgesOut.ElementAt(UtilHelper.GetRandomValue(EdgesOut.Count));
         }
 
         public void AddEdgeToNode(Node toNode, int strength)

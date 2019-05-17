@@ -44,6 +44,7 @@ namespace DNA_sequencing
                 catch
                 {
                     Console.WriteLine($"No DNA file at --> {fileName}");
+                    return;
                 }
 
                 correctNumberInput = false;
@@ -57,17 +58,17 @@ namespace DNA_sequencing
                 }
 
                 var graph = new GraphLogic.Graph(dnaSequence, dnaLength, k);
-                graph.PrintOutGraph();
+                Console.WriteLine("Graph Created");
+                //graph.PrintOutGraph();
                 
+                //search for the best answer you can find
+                //for now just a random 
+                var randomDnaAnswer = graph.FindRandomAnswer();
+                
+                UtilHelper.CompareString(dnaSequence, randomDnaAnswer);
+                Console.ReadLine();
             }
-            
-            //try to recreate this DNA
-            //for now let's compare to sample string
 
-            var sampleDna = "AAAAAAAAGGGGTACAGCCC";
-
-            StringHelper.CompareString(dnaSequence, sampleDna);
-            Console.ReadLine();
         }
 
         public static void GenerateRandomDnaInstances(int length)
@@ -79,30 +80,30 @@ namespace DNA_sequencing
 
             //random dna
 
-            var dnaSequence = StringHelper.GetRandomString(length);
+            var dnaSequence = UtilHelper.GetRandomString(length);
             File.WriteAllText($"{directory}\\dna-random-1.txt", dnaSequence);
 
-            dnaSequence = StringHelper.GetRandomString(length);
+            dnaSequence = UtilHelper.GetRandomString(length);
             File.WriteAllText($"{directory}\\dna-random-2.txt", dnaSequence);
 
             //very repetitive 
 
-            dnaSequence = StringHelper.GetRandomString(length, 0.85f, 0.05f, 0.05f);
+            dnaSequence = UtilHelper.GetRandomString(length, 0.85f, 0.05f, 0.05f);
             File.WriteAllText($"{directory}\\dna-repetitve-1.txt", dnaSequence);
             
             //only two nucleotides
 
-            dnaSequence = StringHelper.GetRandomString(length, 0.5f, 0.5f, 0f);
+            dnaSequence = UtilHelper.GetRandomString(length, 0.5f, 0.5f, 0f);
             File.WriteAllText($"{directory}\\dna-only-AC-1.txt", dnaSequence);
 
             //mostly two nucleotides
 
-            dnaSequence = StringHelper.GetRandomString(length, 0.4f, 0.4f, 0.1f);
+            dnaSequence = UtilHelper.GetRandomString(length, 0.4f, 0.4f, 0.1f);
             File.WriteAllText($"{directory}\\dna-mostly-AC-1.txt", dnaSequence);
 
             //mostly three nucleotides
 
-            dnaSequence = StringHelper.GetRandomString(length, 0.3f, 0.3f, 0.3f);
+            dnaSequence = UtilHelper.GetRandomString(length, 0.3f, 0.3f, 0.3f);
             File.WriteAllText($"{directory}\\dna-mostly-ACG-1.txt", dnaSequence);
         }
     }
