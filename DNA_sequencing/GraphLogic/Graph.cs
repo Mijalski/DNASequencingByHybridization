@@ -12,7 +12,8 @@ namespace DNA_sequencing.GraphLogic
 
         public string OriginalDna;
         public int DnaLength;
-        public int LengthK = 0; //TODO Change this name
+        public int LengthK; //TODO Change this name
+        public int PositiveErrorCount;
 
         public Graph(string dna, int dnaLength, int k)
         {
@@ -25,6 +26,9 @@ namespace DNA_sequencing.GraphLogic
             {
                 this.AddNode(dna.Substring(i, LengthK)); //add a node for every K-length substring of our DNA
             }
+            
+            var idealNodeCount = dnaLength - LengthK + 1; // S = n - k + 1
+            PositiveErrorCount = idealNodeCount - Nodes.Count;
 
             StartingNode = Nodes.First();
 

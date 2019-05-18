@@ -29,7 +29,14 @@ namespace DNA_sequencing
             return Instance.Next(0, maxValue);
         }
 
-
+        /// <summary>
+        /// Returns a random DNA sequence; probablity for T is equal to 1 - (pA + pC + pG);
+        /// </summary>
+        /// <param name="length"></param>
+        /// <param name="probabilityA"></param>
+        /// <param name="probabilityC"></param>
+        /// <param name="probabilityG"></param>
+        /// <returns></returns>
         public static string GetRandomString(int length, float probabilityA = 0.25f, float probabilityC = 0.25f,
             float probabilityG = 0.25f)
         {
@@ -105,7 +112,7 @@ namespace DNA_sequencing
             } 
         }
 
-        private static int CalculateScore(int[,]scoringMatrix, string baseString, string referenceString)
+        private static double CalculateScore(int[,]scoringMatrix, string baseString, string referenceString)
         {
             var baseElements = baseString.ToCharArray();
             var referenceElements = referenceString.ToCharArray();
@@ -114,7 +121,6 @@ namespace DNA_sequencing
             var alignmentB = string.Empty;
             var m = baseString.Length;
             var n = referenceString.Length;
-            var overallScore = 0;
 
             while (m > 0 && n > 0)
             {
@@ -126,8 +132,6 @@ namespace DNA_sequencing
                 else
                     scoreDiag = -1;
                 
-                overallScore += scoringMatrix[m, n];
-
                 if (m > 0 && n > 0 && scoringMatrix[m, n] == scoringMatrix[m - 1, n - 1] + scoreDiag)
                 {
                     alignmentA = referenceElements[n - 1] + alignmentA;
@@ -148,12 +152,13 @@ namespace DNA_sequencing
                     m = m - 1;
                 }
             }
-            
-            Console.WriteLine("------");
-            Console.WriteLine(alignmentA);
-            Console.WriteLine(alignmentB);
 
-            return overallScore;
+            Console.WriteLine("a:" + alignmentA);
+            Console.WriteLine("b: " + alignmentB);
+
+            var pointCoint = alignmentA.Where((t, i) => t == alignmentB[i]).Count(); //foreach loop where you count char array elements that are equal
+
+            return (double)pointCoint / baseString.Length; //double check if you should divide by baseString.Length or the alignmentB.Length
         }
     }
 }
