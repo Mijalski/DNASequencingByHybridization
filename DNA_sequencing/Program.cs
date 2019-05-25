@@ -9,9 +9,8 @@ namespace DNA_sequencing
 
         static void Main(string[] args)
         {
-            int k = int.Parse(args[1]);
             string originalSequence = ReadSequenceInFile(args[0]);
-            string generatedSequence = SequenceDNA(originalSequence, k);
+            string generatedSequence = SequenceDNA(originalSequence);
             PrintResult(originalSequence, generatedSequence);
         }
 
@@ -25,7 +24,7 @@ namespace DNA_sequencing
             return sequence;
         }
 
-        private static string SequenceDNA(string baseSequence, int k) {
+        private static string SequenceDNA(string baseSequence) {
             return UtilHelper.GetRandomString(baseSequence.Length);
         }
 
