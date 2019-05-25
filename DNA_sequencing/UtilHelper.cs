@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -157,5 +158,10 @@ namespace DNA_sequencing
 
             return (double)pointCoint / baseString.Length; //double check if you should divide by baseString.Length or the alignmentB.Length
         }
+
+        public static string ReadContentsOfFile(string filename) {
+            return File.ReadAllText(filename).Trim();
+        }
+
     }
 }

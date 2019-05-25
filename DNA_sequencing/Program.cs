@@ -5,7 +5,10 @@ namespace DNA_sequencing
 {
     class Program
     { 
-        static readonly char[] ValidNucleotides =  new char[] {'A', 'C', 'G', 'T'};
+        // Shit happens here
+        private static string SequenceDNA(string baseSequence) {
+            return UtilHelper.GetRandomString(baseSequence.Length);
+        }
 
         static void Main(string[] args)
         {
@@ -14,7 +17,7 @@ namespace DNA_sequencing
                     SequenceRandomDNA();
                     break;
                 default:
-                    SequenceDNABasedOnFile(args[0]);
+                    SequenceDNAInFile(args[0]);
                     break;
             }
 
@@ -27,24 +30,10 @@ namespace DNA_sequencing
             PrintResult(randomSequence, generatedSequence);
         }
 
-        private static void SequenceDNABasedOnFile(string filename) {
+        private static void SequenceDNAInFile(string filename) {
             string originalSequence = ReadSequenceInFile(filename);
             string generatedSequence = SequenceDNA(originalSequence);
             PrintResult(originalSequence, generatedSequence);
-        }
-
-        private static string ReadSequenceInFile(string filename) {
-            ValidateFile(filename);
-
-            string sequence = ReadContentsOfFile(filename);
-
-            ValidateSequence(sequence);
-
-            return sequence;
-        }
-
-        private static string SequenceDNA(string baseSequence) {
-            return UtilHelper.GetRandomString(baseSequence.Length);
         }
 
         private static void PrintResult(string originalSequence, string generatedSequence) {
@@ -55,33 +44,15 @@ namespace DNA_sequencing
             Console.WriteLine($"Similarity: {similarity * 100}%");
         }
 
-        private static void ValidateFile(string filename) {
-            if (!File.Exists(filename)) {
-                Console.WriteLine("File doesn't exist or you don't have permission to read it.");
-                Environment.Exit(1);
-            }
+        private static string ReadSequenceInFile(string filename) {
+            Validators.ValidateFile(filename);
+
+            string sequence = UtilHelper.ReadContentsOfFile(filename);
+
+            Validators.ValidateSequence(sequence);
+
+            return sequence;
         }
 
-        private static string ReadContentsOfFile(string filename) {
-            return File.ReadAllText(filename).Trim();
-        }
-
-        private static void ValidateSequence(string sequence) {
-            if (sequence.Length == 0) {
-                Console.WriteLine("The file is empty.");
-                Environment.Exit(2);
-            }
-
-            char[] sequenceCharacters = sequence.ToCharArray();
-            foreach (var character in sequenceCharacters)
-            {
-                bool isValidCharacter = Array.IndexOf(ValidNucleotides, character) != -1;
-
-                if (!isValidCharacter) { 
-                    Console.WriteLine($"Sequence contains invalid character: {character}.");
-                    Environment.Exit(2);
-                }
-            }
-        }
     }
 }
