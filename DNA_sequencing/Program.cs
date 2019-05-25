@@ -10,6 +10,7 @@ namespace DNA_sequencing
             return UtilHelper.GetRandomString(baseSequence.Length);
         }
 
+        // Usage: program.dll <file.txt|--random>
         static void Main(string[] args)
         {
             switch (args[0]) {
