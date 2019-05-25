@@ -67,12 +67,12 @@ namespace DNA_sequencing
             return new string(chars.ToArray());
         }
 
-        public static void CompareString(string baseString, string referenceString)
+        public static double GetSimilarityOf(string baseString, string referenceString)
         {
             InitializeMatrix(baseString.Length, referenceString.Length, out var scoringMatrix);
             FillScoresInMatrix(scoringMatrix, baseString, referenceString);
             var overallScore = CalculateScore(scoringMatrix, baseString, referenceString);
-            Console.WriteLine("Score: " + overallScore);
+            return overallScore;
         }
 
         //Private methods:
@@ -152,9 +152,6 @@ namespace DNA_sequencing
                     m = m - 1;
                 }
             }
-
-            Console.WriteLine("a:" + alignmentA);
-            Console.WriteLine("b: " + alignmentB);
 
             var pointCoint = alignmentA.Where((t, i) => t == alignmentB[i]).Count(); //foreach loop where you count char array elements that are equal
 
