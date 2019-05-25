@@ -9,7 +9,26 @@ namespace DNA_sequencing
 
         static void Main(string[] args)
         {
-            string originalSequence = ReadSequenceInFile(args[0]);
+            switch (args[0]) {
+                case "--random":
+                    SequenceRandomDNA();
+                    break;
+                default:
+                    SequenceDNABasedOnFile(args[0]);
+                    break;
+            }
+
+        }
+
+        private static void SequenceRandomDNA() {
+            int randomLength = new Random().Next(700);
+            string randomSequence = UtilHelper.GetRandomString(randomLength);
+            string generatedSequence = SequenceDNA(randomSequence);
+            PrintResult(randomSequence, generatedSequence);
+        }
+
+        private static void SequenceDNABasedOnFile(string filename) {
+            string originalSequence = ReadSequenceInFile(filename);
             string generatedSequence = SequenceDNA(originalSequence);
             PrintResult(originalSequence, generatedSequence);
         }
