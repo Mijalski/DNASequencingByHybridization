@@ -26,7 +26,7 @@ namespace DNA_sequencing
         }
 
         private static string SequenceDNA(string baseSequence, int k) {
-            return "AGCT";
+            return UtilHelper.GetRandomString(baseSequence.Length);
         }
 
         private static void PrintResult(string originalSequence, string generatedSequence) {
