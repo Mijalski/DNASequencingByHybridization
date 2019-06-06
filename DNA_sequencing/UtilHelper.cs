@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -67,12 +68,12 @@ namespace DNA_sequencing
             return new string(chars.ToArray());
         }
 
-        public static void CompareString(string baseString, string referenceString)
+        public static double GetSimilarityOf(string baseString, string referenceString)
         {
             InitializeMatrix(baseString.Length, referenceString.Length, out var scoringMatrix);
             FillScoresInMatrix(scoringMatrix, baseString, referenceString);
             var overallScore = CalculateScore(scoringMatrix, baseString, referenceString);
-            Console.WriteLine("Score: " + overallScore);
+            return overallScore;
         }
 
         //Private methods:
@@ -153,12 +154,14 @@ namespace DNA_sequencing
                 }
             }
 
-            Console.WriteLine("a:" + alignmentA);
-            Console.WriteLine("b: " + alignmentB);
-
             var pointCoint = alignmentA.Where((t, i) => t == alignmentB[i]).Count(); //foreach loop where you count char array elements that are equal
 
             return (double)pointCoint / baseString.Length; //double check if you should divide by baseString.Length or the alignmentB.Length
         }
+
+        public static string ReadContentsOfFile(string filename) {
+            return File.ReadAllText(filename).Trim();
+        }
+
     }
 }

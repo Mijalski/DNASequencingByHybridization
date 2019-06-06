@@ -1,0 +1,3 @@
+DNA_sequencing/obj/**/*
+bin
+.vscode
