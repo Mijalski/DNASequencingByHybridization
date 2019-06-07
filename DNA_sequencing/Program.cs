@@ -1,32 +1,55 @@
 ﻿using System;
 using System.IO;
+using DNA_sequencing.GraphLogic;
 
 namespace DNA_sequencing
 {
     class Program
-    { 
+    {
+        //k
+        public static int SpectrumSize = 5;
+
         // Shit happens here
-        private static string SequenceDNA(string baseSequence) {
-            return UtilHelper.GetRandomString(baseSequence.Length);
+        private static string SequenceDNA(string baseSequence)
+        {
+            var graph = new Graph(baseSequence, baseSequence.Length, SpectrumSize);
+            return graph.RecreateDna();
         }
 
         // Usage: program.dll <file.txt|--random>
         static void Main(string[] args)
         {
-            switch (args[0]) {
-                case "--random":
-                    SequenceRandomDNA();
-                    break;
-                default:
-                    SequenceDNAInFile(args[0]);
-                    break;
-            }
+            if(args.Length > 0){
 
+                switch (args[0]) {
+                    case "--random":
+                        SequenceRandomDNA();
+                        break;
+                    default:
+                        SequenceDNAInFile(args[0]);
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Args[0]: ");
+                var option0 =  Console.ReadLine();
+                switch (option0) {
+                    case "--random":
+                        SequenceRandomDNA();
+                        break;
+                    default:
+                        SequenceDNAInFile(option0);
+                        break;
+                }
+            }
+            Console.ReadLine();
         }
 
-        private static void SequenceRandomDNA() {
-            int randomLength = new Random().Next(700);
-            string randomSequence = UtilHelper.GetRandomString(randomLength);
+        private static void SequenceRandomDNA()
+        {
+            int length = 200;
+            string randomSequence = UtilHelper.GetRandomString(length);
             string generatedSequence = SequenceDNA(randomSequence);
             PrintResult(randomSequence, generatedSequence);
         }

@@ -13,7 +13,7 @@ namespace DNA_sequencing.GraphLogic
         public string OriginalDna;
         public int DnaLength;
         public int LengthK; //TODO Change this name
-        public int PositiveErrorCount;
+        public int IdealNodeCount;
 
         public Graph(string dna, int dnaLength, int k)
         {
@@ -27,15 +27,36 @@ namespace DNA_sequencing.GraphLogic
                 this.AddNode(dna.Substring(i, LengthK)); //add a node for every K-length substring of our DNA
             }
             
-            var idealNodeCount = dnaLength - LengthK + 1; // S = n - k + 1
-            PositiveErrorCount = idealNodeCount - Nodes.Count;
+            IdealNodeCount = dnaLength - LengthK + 1; // S = n - k + 1
 
             StartingNode = Nodes.First();
 
             AddEdges();
         }
+        
+        public string RecreateDna(int maxRounds = 100)
+        {
+            var round = 0;
+            var probabilityMultipliers = UtilHelper.CreateProbabilityArray(new double[LengthK - 2]);
+            
+            var currentBestDna = FindRandomDnaSequence();
+            var currentBestSimilarity = UtilHelper.GetSimilarityOf(OriginalDna, currentBestDna);
 
-        public string FindRandomAnswer()
+            Console.WriteLine($"ideal node count: {IdealNodeCount}, node count {Nodes.Count}");
+            Console.WriteLine($"Similarity after {round} rounds: {currentBestSimilarity}");
+
+            while (round < maxRounds)
+            {
+                probabilityMultipliers = UtilHelper.AddToProbabilityArray(probabilityMultipliers, LengthK - 3, 5);
+                currentBestDna = FindDnaSequence(probabilityMultipliers);
+                currentBestSimilarity = UtilHelper.GetSimilarityOf(OriginalDna, currentBestDna);
+                Console.WriteLine($"Similarity after {round} rounds: {currentBestSimilarity}");
+                round++;
+            }
+            return currentBestDna;
+        }
+        
+        public string FindRandomDnaSequence()
         {
             var currentNode = StartingNode;
             var reconstructedDna = StartingNode.DnaSequence;
@@ -49,6 +70,25 @@ namespace DNA_sequencing.GraphLogic
                 reconstructedDna += currentNode.DnaSequence;
             }
 
+            return reconstructedDna;
+        }
+
+
+        public string FindDnaSequence(double[] probabilityMultipliers)
+        {
+            var visitedNodesList = new List<Node>();
+            var currentNode = StartingNode;
+            var reconstructedDna = StartingNode.DnaSequence;
+
+            while (reconstructedDna.Length < DnaLength)
+            {
+                var nextEdge = currentNode.GetRandomEdgeOut(probabilityMultipliers, visitedNodesList.Count < Nodes.Count, visitedNodesList);
+                currentNode = nextEdge.ToNode;
+                visitedNodesList.Add(currentNode);
+
+                reconstructedDna = reconstructedDna.Remove(reconstructedDna.Length - nextEdge.Weight); //we need to remove overlapping DNA sequence from the next node
+                reconstructedDna += currentNode.DnaSequence;
+            }
             return reconstructedDna;
         }
 

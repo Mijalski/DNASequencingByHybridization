@@ -25,9 +25,28 @@ namespace DNA_sequencing
         public static Random Instance => threadLocal.Value;
 
         //Methods to use:
-        public static int GetRandomValue(int maxValue)
+        public static int GetRandomValue(int maxValue) => Instance.Next(0, maxValue);
+
+        public static double GetRandomDoubleValue() => Instance.NextDouble();
+
+        public static double[] AddToProbabilityArray(double[] array, int index, double value)
         {
-            return Instance.Next(0, maxValue);
+            for (var i = index; i < array.Length; i++)
+            {
+                array[i] += value;
+            }
+
+            return array;
+        }
+        
+        public static double[] CreateProbabilityArray(double[] array)
+        {
+            for (var i = 0; i < array.Length; i++)
+            {
+                array[i] = i+1;
+            }
+
+            return array;
         }
 
         /// <summary>
