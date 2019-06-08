@@ -19,31 +19,26 @@ namespace DNA_sequencing
         // Usage: program.dll <file.txt|--random>
         static void Main(string[] args)
         {
-            if(args.Length > 0){
+            var filename = GetFilenameFromArgs(args);
 
-                switch (args[0]) {
-                    case "--random":
-                        SequenceRandomDNA();
-                        break;
-                    default:
-                        SequenceDNAInFile(args[0]);
-                        break;
-                }
-            }
-            else
+            switch (filename)
             {
-                Console.WriteLine("Args[0]: ");
-                var option0 =  Console.ReadLine();
-                switch (option0) {
-                    case "--random":
-                        SequenceRandomDNA();
-                        break;
-                    default:
-                        SequenceDNAInFile(option0);
-                        break;
-                }
-            }
+                case "--random":
+                    SequenceRandomDna();
+                    break;
+                default:
+                    SequenceDnaInFile(filename);
+                    break; }
+
             Console.ReadLine();
+        }
+
+        private static string GetFilenameFromArgs(string[] args)
+        {
+          if (args.Length != 0) return args[0];
+          
+          Console.WriteLine("Path to file containing sequence: ");
+          return Console.ReadLine();
         }
 
         private static void SequenceRandomDNA()
