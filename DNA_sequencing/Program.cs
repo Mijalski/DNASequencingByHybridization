@@ -7,7 +7,7 @@ namespace DNA_sequencing
     class Program
     {
         //k
-        public static int SpectrumSize = 5;
+        public static int SpectrumSize = 10;
 
         // Shit happens here
         private static string SequenceDNA(string baseSequence)
@@ -48,7 +48,7 @@ namespace DNA_sequencing
 
         private static void SequenceRandomDNA()
         {
-            int length = 200;
+            int length = 700;
             string randomSequence = UtilHelper.GetRandomString(length);
             string generatedSequence = SequenceDNA(randomSequence);
             PrintResult(randomSequence, generatedSequence);

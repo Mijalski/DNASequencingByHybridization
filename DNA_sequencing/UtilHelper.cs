@@ -34,6 +34,8 @@ namespace DNA_sequencing
             for (var i = index; i < array.Length; i++)
             {
                 array[i] += value;
+                if (array[i] < 0)
+                    array[i] = 0;
             }
 
             return array;
