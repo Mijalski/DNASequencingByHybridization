@@ -10,7 +10,7 @@ namespace DNA_sequencing
         public static int SpectrumSize = 10;
 
         // Shit happens here
-        private static string SequenceDNA(string baseSequence)
+        private static string SequenceDna(string baseSequence)
         {
             var graph = new Graph(baseSequence, baseSequence.Length, SpectrumSize);
             return graph.RecreateDna();
@@ -41,17 +41,17 @@ namespace DNA_sequencing
           return Console.ReadLine();
         }
 
-        private static void SequenceRandomDNA()
+        private static void SequenceRandomDna()
         {
             int length = 700;
             string randomSequence = UtilHelper.GetRandomString(length);
-            string generatedSequence = SequenceDNA(randomSequence);
+            string generatedSequence = SequenceDna(randomSequence);
             PrintResult(randomSequence, generatedSequence);
         }
 
-        private static void SequenceDNAInFile(string filename) {
+        private static void SequenceDnaInFile(string filename) {
             string originalSequence = ReadSequenceInFile(filename);
-            string generatedSequence = SequenceDNA(originalSequence);
+            string generatedSequence = SequenceDna(originalSequence);
             PrintResult(originalSequence, generatedSequence);
         }
 
