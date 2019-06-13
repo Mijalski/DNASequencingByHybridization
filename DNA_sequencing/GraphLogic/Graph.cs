@@ -27,7 +27,7 @@ namespace DNA_sequencing.GraphLogic
                 this.AddNode(dna.Substring(i, LengthK)); //add a node for every K-length substring of our DNA
             }
             
-            IdealNodeCount = dnaLength - LengthK + 1; // S = n - k + 1
+            IdealNodeCount = this.Nodes.Count; 
 
             StartingNode = Nodes.First();
 
