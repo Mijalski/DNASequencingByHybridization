@@ -10,7 +10,7 @@ namespace DNA_sequencing
         public static int SpectrumSize = 10;
 
         // Shit happens here
-        private static string SequenceDNA(string baseSequence)
+        private static string SequenceDna(string baseSequence)
         {
             var graph = new Graph(baseSequence, baseSequence.Length, SpectrumSize);
             return graph.RecreateDna();
@@ -19,44 +19,39 @@ namespace DNA_sequencing
         // Usage: program.dll <file.txt|--random>
         static void Main(string[] args)
         {
-            if(args.Length > 0){
+            var filename = GetFilenameFromArgs(args);
 
-                switch (args[0]) {
-                    case "--random":
-                        SequenceRandomDNA();
-                        break;
-                    default:
-                        SequenceDNAInFile(args[0]);
-                        break;
-                }
-            }
-            else
+            switch (filename)
             {
-                Console.WriteLine("Args[0]: ");
-                var option0 =  Console.ReadLine();
-                switch (option0) {
-                    case "--random":
-                        SequenceRandomDNA();
-                        break;
-                    default:
-                        SequenceDNAInFile(option0);
-                        break;
-                }
-            }
+                case "--random":
+                    SequenceRandomDna();
+                    break;
+                default:
+                    SequenceDnaInFile(filename);
+                    break; }
+
             Console.ReadLine();
         }
 
-        private static void SequenceRandomDNA()
+        private static string GetFilenameFromArgs(string[] args)
+        {
+          if (args.Length != 0) return args[0];
+          
+          Console.WriteLine("Path to file containing sequence: ");
+          return Console.ReadLine();
+        }
+
+        private static void SequenceRandomDna()
         {
             int length = 700;
             string randomSequence = UtilHelper.GetRandomString(length);
-            string generatedSequence = SequenceDNA(randomSequence);
+            string generatedSequence = SequenceDna(randomSequence);
             PrintResult(randomSequence, generatedSequence);
         }
 
-        private static void SequenceDNAInFile(string filename) {
+        private static void SequenceDnaInFile(string filename) {
             string originalSequence = ReadSequenceInFile(filename);
-            string generatedSequence = SequenceDNA(originalSequence);
+            string generatedSequence = SequenceDna(originalSequence);
             PrintResult(originalSequence, generatedSequence);
         }
 
